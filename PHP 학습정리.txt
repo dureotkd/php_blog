@@ -1,13 +1,13 @@
 PHP 블로그 참고사이트 
 https://chamggae.tistory.com/83?category=793467
 
-LIST 완성
+PHP
+주소 : to2.kr/brO (초급)
+주소 : 
 
-DETAIL 완성
+혼자 힘으로 
 
-LOGIN 완성
-
-JOIN 완성 
+게시판 리스트 / 디테일 / 삭제 / 조회수 / 글쓰기  가능!
 
 
 

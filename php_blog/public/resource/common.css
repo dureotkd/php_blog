@@ -87,6 +87,24 @@
 .contents {
     display:flex;
     align-items: center;
+    flex-direction: column;
     justify-content: center;
     width: 100%;
+}
+
+.contents-item {
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    border:1px solid burlywood;
+    padding: 20px;
+}
+
+.red {
+    color: red;
+}
+.blue {
+    color:blue;
 }
