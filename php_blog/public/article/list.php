@@ -9,12 +9,25 @@ if ( isset($_GET['searchKeyword']) == false ){
 }
 $searchKeyword = $_GET['searchKeyword'];
 
+if ( isset($_GET['page']) == false ){
+    $_GET['page'] = 1;
+}
+
+$itemsInAPage = 10;
+
+$page = $_GET['page'];
+
+$from = ($page-1) * $itemsInAPage;
+
 $sql = "
-SELECT COUNT(*) AS cnt
+SELECT CEIL(COUNT(*) / 10) AS totalPage
 FROM article
 WHERE displayStatus = 1
 ";
-$articleCount = mysqli_query($conn, $sql);
+$rs = mysqli_query($conn, $sql);
+
+$count = mysqli_fetch_assoc($rs);
+$totalPage = $count['totalPage'];
 
 $sql = "
 SELECT * FROM article
@@ -27,7 +40,8 @@ if (!empty($searchKeyword)){
     ";
 }
 $sql .= "
-ORDER BY id DESC LIMIT 100
+ORDER BY id DESC
+LIMIT {$from},{$itemsInAPage}
 ";
 
 $rs = mysqli_query($conn, $sql);
@@ -42,10 +56,21 @@ while ( $row = mysqli_fetch_assoc($rs)){
 <div class="l-contents">
     <h1>게시물 리스트</h1>
     <?php foreach ( $rows as $row ) { ?>
-    <div><a href="./detail.php?id=<?=$row['id']?>">카테고리 NO : <?=$row['boardId']?>/ <?=$row['regDate']?> /
+    <div><a href="./detail.php?id=<?=$row['id']?>">NO : <?=$row['id']?>/ <?=$row['regDate']?> /
             <?=$row['title']?></a></div>
     <?php } ?>
 </div>
+    <?php 
+    for ( $i = 1; $i <= $totalPage; $i++ ){ ?>
+    <?php 
+    $class = '';
+    if ( $i == $page ){
+        $class = "current";
+    }
+    ?>
+    <span class="<?=$class?>"><a href="list.php?page=<?=$i?>"><?=$i?></a></span>
+    <?php }
+    ?>
 
 
 <?php 

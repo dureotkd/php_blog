@@ -24,6 +24,10 @@
     top:0px;
     width: 100%;
 }
+.current {
+    color:red;
+    font-size:1.5rem;
+}
 .top-bar > ul {
     display: flex;
 }
