@@ -1,11 +1,2 @@
 <?php
-
-$dbHost = "localhost";
-$dbId = "dureotkd123";
-$dbPw = "slsksh33";
-$dbName = "php_blog";
-$dbPort = 3306;
-
-$dbConn = mysqli_connect($dbHost,$dbId,$dbPw,$dbName,$dbPort) or die ("Connect Fail");
-
-?>
+$conn = mysqli_connect("127.0.0.1", "dureotkd123", "slsksh33", "php_blog", 3306) or die('DB CONNECTION ERROR');

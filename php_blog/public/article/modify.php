@@ -3,11 +3,11 @@ include "../../part/head.php";
 ?>
 
 <div class="contents">
-    <form method="POST" action="doWrite.php">
+    <form method="POST" action="doModify.php">
         <table style="padding-top:50px" align=center width=700 border=0 cellpadding=2>
             <tr>
                 <td height=20 align=center bgcolor=#ccc>
-                    <font color=white> 글쓰기</font>
+                    <font color=white>글수정</font>
                 </td>
             </tr>
             <tr>
@@ -20,7 +20,7 @@ include "../../part/head.php";
 
                         <tr>
                             <td>내용</td>
-                            <td><textarea name=body cols=85 rows=15></textarea></td>
+                            <td><textarea name=body  cols=85 rows=15></textarea></td>
                         </tr>
                     </table>
                     <center>

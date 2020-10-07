@@ -3,7 +3,7 @@
     margin: 0px;
     list-style: none;
     text-decoration: none;
-    color: inherit;
+    color: black;
 }
 .top-bar {
     height: 60px;
@@ -18,7 +18,7 @@
     transform: translate(-50%,0px);
 }
 .top-line {
-    background-color: black;
+    background-color: blanchedalmond;
     height: 60px;
     position: fixed;
     top:0px;
@@ -87,24 +87,14 @@
 .contents {
     display:flex;
     align-items: center;
-    flex-direction: column;
     justify-content: center;
     width: 100%;
-}
-
-.contents-item {
-    display:flex;
-    flex-direction:column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    border:1px solid burlywood;
-    padding: 20px;
 }
 
 .red {
     color: red;
 }
+
 .blue {
-    color:blue;
+    color: blue;
 }

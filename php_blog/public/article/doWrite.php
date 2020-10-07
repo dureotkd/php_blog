@@ -1,31 +1,27 @@
 <?php
-require_once __DIR__ . "/../connect/config.php";
+require_once __DIR__ . '/../connect/config.php';
 
+$URL = './list.php';
 $title = $_POST['title'];
 $body = $_POST['body'];
-$boardId = $_POST['boardId'];
+
 $sql = "
 INSERT INTO article 
-(regDate,updateDate,title,body,boardId,memberId,displayStatus,hit)
-VALUES 
-(NOW(),NOW(),'{$title}','{$body}','{$boardId}',1,1,0)
+(regDate,title,body,boardId,memberId,displayStatus,hit)
+values(NOW(),'$title','$body',1,1,1,0)
 ";
 
-$rs = mysqli_query($dbConn,$sql);
-
-if ( $rs ){
-    ?>
-<script>
-    alert('작성완료');
-    location.replace('list.php');
-</script>
-<?php 
-} else {
-    ?>
-<script>
-    alert('작성실패');
-    history.back();
-</script>
+$result = $conn -> query($sql);
+if($result) {
+?> 
+    <script>
+        alert("<?php echo "글이 등록되었습니다"?>");
+        location.replace("<?php echo $URL?>");
+    </script>
 <?php
-}
+    }
+    else {
+        echo "FAIL";
+    }
+    mysqli_close($conn);
 ?>

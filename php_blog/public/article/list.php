@@ -1,55 +1,53 @@
-<?php
+<?php 
 include "../../part/head.php";
+
+// 절대 경로 require_once __DIR__
 require_once __DIR__ . "/../connect/config.php";
-
-$boardId =$_GET['boardId'];
-
-// 게시판별 게시글 갯수 가저오기..
-$sql = "
-SELECT boardId, COUNT(*) AS articleCount
-FROM board
-WHERE id = {$boardId}
-";
-mysqli_query($dbConn,$sql);
-
-
+// isset 이런 변수가 입력이 안되면 ~~~  
+if ( isset($_GET['searchKeyword']) == false ){
+    $_GET['searchKeyword'] = '';
+}
+$searchKeyword = $_GET['searchKeyword'];
 
 $sql = "
-SELECT A.*, M.nickname AS memberName
-FROM article AS A
-INNER JOIN member AS M
-ON A.memberId = M.id
-WHERE A.boardId = {$boardId}
-ORDER BY A.id DESC
+SELECT COUNT(*) AS cnt
+FROM article
+WHERE displayStatus = 1
 ";
-$rs = mysqli_query($dbConn,$sql);
+$articleCount = mysqli_query($conn, $sql);
 
-$articles = [];
+$sql = "
+SELECT * FROM article
+WHERE 1 
+";
 
-while ( $article = mysqli_fetch_assoc($rs)){
-    $articles[] = $article;
+if (!empty($searchKeyword)){
+    $sql .= "
+    AND title LIKE '%{$searchKeyword}%'
+    ";
+}
+$sql .= "
+ORDER BY id DESC LIMIT 100
+";
+
+$rs = mysqli_query($conn, $sql);
+$rows = [];
+
+while ( $row = mysqli_fetch_assoc($rs)){
+    $rows[] = $row;
 }
 ?>
 
 
-
-
-<div class="contents">
-    <h2>리스트(<?=$articleCount?>)</h2>
-    <?php if ( count($articles) > 0 ) {?>
-    <?php forEach ( $articles as $article ) { ?>
-    <div class="contents-item">
-    <?=$article['id']?>
-    <?=$article['memberName']?>
-    <?=$article['title']?>
-    <a class="blue" href="detail.php?id=<?=$article['id']?>"><?=$article['body']?></a>
-    </div>
+<div class="l-contents">
+    <h1>게시물 리스트</h1>
+    <?php foreach ( $rows as $row ) { ?>
+    <div><a href="./detail.php?id=<?=$row['id']?>">카테고리 NO : <?=$row['boardId']?>/ <?=$row['regDate']?> /
+            <?=$row['title']?></a></div>
     <?php } ?>
-    <?php  }  else {?>
-        <h2>게시물 아예 없음;;</h2>
-    <?php }?>
 </div>
 
-<?php
+
+<?php 
 include "../../part/foot.php";
 ?>
